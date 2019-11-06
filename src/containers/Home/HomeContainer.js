@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, ImageBackground, Dimensions} from 'react-native';
 import {Container, Text, Form, Item, Input, Label, Button} from 'native-base';
 import {Row, Grid} from 'react-native-easy-grid';
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
+import {connect} from 'react-redux';
 
 const {width: deviceWidth, height: deviceHeight} = Dimensions.get('window');
 
-const HomeContainer = _props => {
+const HomeContainer = ({dispatch}) => {
+	const [username, onChangeUsername] = useState('');
 	const goToPassword = () => {
-		Actions.password();
+		Actions.password({username});
 	};
 	return (
 		<Container>
@@ -26,7 +28,10 @@ const HomeContainer = _props => {
 							<Form style={styles.form}>
 								<Item style={styles.item} floatingLabel>
 									<Label>Username</Label>
-									<Input />
+									<Input
+										onChangeText={text => onChangeUsername(text)}
+										value={username}
+									/>
 								</Item>
 								<Button onPress={goToPassword} full>
 									<Text>Next</Text>
@@ -90,4 +95,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default HomeContainer;
+export default connect()(HomeContainer);
