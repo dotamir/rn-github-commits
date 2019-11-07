@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StatusBar, Platform} from 'react-native';
 import {connect} from 'react-redux';
@@ -16,6 +17,7 @@ import AppLoadingContainer from './../AppLoading/AppLoadingContainer';
 import HomeContainer from './../Home/HomeContainer';
 import PasswordContainer from './../Password/PasswordContainer';
 import SearchContainer from './../Search/SearchContainer';
+import RepositoryContainer from './../Repository/RepositoryContainer';
 import ErrorModal from '../../components/Modal/ErrorModal';
 
 const transitionConfig = () => ({
@@ -24,7 +26,6 @@ const transitionConfig = () => ({
 const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
 
 const AppContainer = ({isAuthed}) => {
-	console.log(isAuthed);
 	return (
 		<>
 			<StatusBar barStyle="light-content" />
@@ -57,6 +58,15 @@ const AppContainer = ({isAuthed}) => {
 										key="search"
 										component={SearchContainer}
 										title="Search"
+										success={() => {
+											protectedView(isAuthed);
+										}}
+									/>
+
+									<Scene
+										key="repository"
+										component={RepositoryContainer}
+										title="Repository history"
 										success={() => {
 											protectedView(isAuthed);
 										}}
