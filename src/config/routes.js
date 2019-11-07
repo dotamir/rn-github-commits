@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
 	Actions,
 	Scene,
@@ -12,32 +12,22 @@ import {
 } from 'react-native-router-flux';
 import ErrorModal from './../components/Modal/ErrorModal';
 import HomeContainer from './../containers/Home/HomeContainer';
+import PasswordContainer from './../containers/Password/PasswordContainer';
+import SearchContainer from './../containers/Search/SearchContainer';
 import {StackViewStyleInterpolator} from 'react-navigation-stack';
 import {Platform} from 'react-native';
-
-const PrivateRoute = ({component, key, isAuthed, ...rest}) => {
-	useEffect(() => {
-		if (!isAuthed) {
-			Actions.error();
-		}
-	});
-
-	if (!isAuthed) {
-		return null;
-	}
-
-	return <Scene key={key} component={component} {...rest} />;
-};
+import {protectedView} from './../utils/helpers';
 
 const transitionConfig = () => ({
 	screenInterpolator: StackViewStyleInterpolator.forFadeFromBottomAndroid,
 });
 const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
 
-export default function getRoutes(_isAuthed) {
+export default function(isAuthed) {
+	console.log(isAuthed);
 	return (
 		<Router uriPrefix={prefix}>
-			<Overlay>
+			<Overlay key="overlay">
 				<Modal
 					key="modal"
 					hideNavBar={true}
@@ -54,8 +44,21 @@ export default function getRoutes(_isAuthed) {
 								initial
 								type={ActionConst.RESET}
 							/>
-						</Stack>
+							<Scene
+								key="password"
+								component={PasswordContainer}
+								title="Password"
+							/>
 
+							<Scene
+								key="search"
+								component={SearchContainer}
+								title="Search"
+								onEnter={() => {
+									protectedView(isAuthed);
+								}}
+							/>
+						</Stack>
 						<Scene key="error" component={ErrorModal} />
 					</Lightbox>
 				</Modal>

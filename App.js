@@ -7,12 +7,11 @@
  */
 
 import React from 'react';
-import {StatusBar} from 'react-native';
-import getRoutes from './src/config/routes';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import * as reducers from './src/redux';
+import AppContainer from './src/containers/App/AppContainer';
 
 const appReducer = combineReducers({...reducers});
 function rootReducer(state, action) {
@@ -28,8 +27,7 @@ const App = () => {
 	return (
 		<>
 			<Provider store={store}>
-				<StatusBar barStyle="dark-content" />
-				{getRoutes()}
+				<AppContainer />
 			</Provider>
 		</>
 	);

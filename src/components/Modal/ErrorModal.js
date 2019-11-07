@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Button, Text} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Modal from './BaseModal';
 
@@ -16,7 +17,9 @@ const ErrorModal = props => (
 		<View flex={1} style={styles.container}>
 			<Text>{props.title}</Text>
 			<Text>{props.data}</Text>
-			<Button title="Close" onPress={Actions.pop} />
+			<Button block onPress={() => Actions.popTo('home')}>
+				<Text>Close</Text>
+			</Button>
 		</View>
 	</Modal>
 );
