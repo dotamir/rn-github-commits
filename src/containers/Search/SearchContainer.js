@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {Actions} from 'react-native-router-flux';
+import {fetch_repo} from './../../redux/modules/repositories';
 import Search from './Search';
 
-const SearchContainer = ({user}) => {
+const SearchContainer = ({user, dispatch, isFetching}) => {
 	const [initialized, setInitialized] = useState(false);
 	const [searchText, setSearchText] = useState('');
 
@@ -16,7 +16,7 @@ const SearchContainer = ({user}) => {
 	}, [initialized]);
 
 	const handleSubmitSearch = () => {
-		Actions.repository();
+		dispatch(fetch_repo(searchText));
 	};
 
 	return (
@@ -25,12 +25,14 @@ const SearchContainer = ({user}) => {
 			searchText={searchText}
 			handleSubmitSearch={handleSubmitSearch}
 			user={user}
+			isFetching={isFetching}
 		/>
 	);
 };
 
-const mapStateToProps = ({authentication}) => ({
+const mapStateToProps = ({authentication, repositories}) => ({
 	user: authentication.profileData,
+	isFetching: repositories.isFetching,
 });
 
 export default connect(mapStateToProps)(SearchContainer);

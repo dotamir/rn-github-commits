@@ -17,7 +17,13 @@ import {
 	Body,
 } from 'native-base';
 
-const Search = ({searchText, setSearchText, handleSubmitSearch, user}) => {
+const Search = ({
+	searchText,
+	setSearchText,
+	handleSubmitSearch,
+	user,
+	isFetching,
+}) => {
 	const {
 		followers,
 		avatar_url,
@@ -27,17 +33,22 @@ const Search = ({searchText, setSearchText, handleSubmitSearch, user}) => {
 		total_private_repos,
 		bio,
 	} = user;
+
 	return (
 		<Container>
 			<Header searchBar rounded>
 				<Item>
 					<Input
+						disabled={isFetching}
 						defaultValue={searchText}
 						onChangeText={text => setSearchText(text)}
 						placeholder="Search"
 					/>
 
-					<Button onPress={() => handleSubmitSearch()} transparent>
+					<Button
+						disabled={isFetching}
+						onPress={() => handleSubmitSearch()}
+						transparent>
 						<Text>Search</Text>
 					</Button>
 				</Item>

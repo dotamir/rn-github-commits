@@ -43,3 +43,12 @@ export const protectedView = isAuthed => {
 
 	return true;
 };
+
+/**
+ * Parse commit messages
+ * @param {String} message
+ */
+export const parseCommitMessage = message => {
+	const msg = message.split(/\r?\n/)[0];
+	return msg.length > 40 ? msg.substring(0, 40) + '...' : msg;
+};
