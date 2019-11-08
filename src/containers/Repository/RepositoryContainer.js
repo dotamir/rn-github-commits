@@ -4,8 +4,14 @@ import {connect} from 'react-redux';
 import {handleGoBack} from './../../utils/helpers';
 import Repository from './Repository';
 
-const RepositoryContainer = ({commits}) => {
-	return <Repository commits={commits} handleGoBack={handleGoBack} />;
+const RepositoryContainer = ({commits, repoName}) => {
+	return (
+		<Repository
+			repoName={repoName}
+			commits={commits}
+			handleGoBack={handleGoBack}
+		/>
+	);
 };
 
 RepositoryContainer.propTypes = {

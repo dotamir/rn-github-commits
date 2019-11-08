@@ -34,6 +34,7 @@ const Repository = ({handleGoBack, commits, repoName}) => {
 				<List>
 					{commits.map(commit => {
 						const {
+							sha,
 							author: {login, avatar_url},
 							commit: {
 								message,
@@ -45,6 +46,7 @@ const Repository = ({handleGoBack, commits, repoName}) => {
 
 						return (
 							<Commit
+								key={sha}
 								date={parseDate}
 								message={praseMessage}
 								username={login}
