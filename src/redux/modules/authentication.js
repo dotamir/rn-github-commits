@@ -4,6 +4,7 @@ import {Toast} from 'native-base';
 
 const AUTHENTICATING = 'AUTHENTICATING';
 const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
+const SET_PROFILE_DATA = 'SET_PROFILE_DATA';
 
 export const login = (username, password) => {
 	return async dispatch => {
@@ -12,8 +13,9 @@ export const login = (username, password) => {
 		try {
 			const user = await loginUser(username, password);
 
+			dispatch({type: SET_PROFILE_DATA, data: user});
 			dispatch({type: SET_AUTH_STATUS, data: true});
-			Actions.search({user});
+			Actions.search();
 		} catch (err) {
 			const {data} = err.response;
 			Toast.show({
@@ -30,6 +32,7 @@ export const login = (username, password) => {
 const initialState = {
 	isAuthed: false,
 	isAuthenticating: false,
+	profileData: {},
 };
 
 export default (state = initialState, action) => {
@@ -43,6 +46,11 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				isAuthed: action.data,
+			};
+		case SET_PROFILE_DATA:
+			return {
+				...state,
+				profileData: action.data,
 			};
 
 		default:

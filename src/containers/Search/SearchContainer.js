@@ -29,4 +29,8 @@ const SearchContainer = ({user}) => {
 	);
 };
 
-export default connect()(SearchContainer);
+const mapStateToProps = ({authentication}) => ({
+	user: authentication.profileData,
+});
+
+export default connect(mapStateToProps)(SearchContainer);
