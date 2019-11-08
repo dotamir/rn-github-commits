@@ -4,16 +4,25 @@ import {Toast} from 'native-base';
 
 const FETCHING_REPOSITORY = 'FETCHING_REPOSITORY';
 const SET_REPOSITORY = 'SET_REPOSITORY';
+const PURGE_REPOSITORY = 'PURGE_REPOSITORY';
+const END_OF_COMMITS = 'END_OF_COMMITS';
 
-export const fetch_repo = repo => {
+export const fetch_repo = (repo, page = 1) => {
 	return async dispatch => {
 		dispatch({type: FETCHING_REPOSITORY, data: true});
 
 		try {
-			const repository = await getRepository(repo);
+			const repository = await getRepository(repo, page);
 
 			dispatch({type: SET_REPOSITORY, data: repository});
-			Actions.repository({repoName: repo});
+
+			if (page <= 1) {
+				Actions.repository({repoName: repo});
+			}
+
+			if (repository.length < 30) {
+				dispatch({type: END_OF_COMMITS});
+			}
 		} catch (err) {
 			const {data} = err.response;
 			Toast.show({
@@ -30,6 +39,7 @@ export const fetch_repo = repo => {
 const initialState = {
 	isFetching: false,
 	repo: [],
+	loadMore: true,
 };
 
 export default (state = initialState, action) => {
@@ -42,7 +52,18 @@ export default (state = initialState, action) => {
 		case SET_REPOSITORY:
 			return {
 				...state,
-				repo: action.data,
+				repo: [...state.repo, ...action.data],
+			};
+		case PURGE_REPOSITORY:
+			return {
+				...state,
+				loadMore: true,
+				repo: [],
+			};
+		case END_OF_COMMITS:
+			return {
+				...state,
+				loadMore: false,
 			};
 
 		default:

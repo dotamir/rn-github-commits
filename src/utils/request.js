@@ -29,7 +29,7 @@ export default async function request(
 
 	options = _.merge(options, extraOptions);
 
-	if (data) {
+	if (data && method !== 'GET') {
 		options.data = data;
 	}
 

@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -39,6 +38,8 @@ const Search = ({
 			<Header searchBar rounded>
 				<Item>
 					<Input
+						autoCapitalize="none"
+						autoCorrect={false}
 						disabled={isFetching}
 						defaultValue={searchText}
 						onChangeText={text => setSearchText(text)}

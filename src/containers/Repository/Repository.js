@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Dimensions} from 'react-native';
 import {
 	Container,
 	Header,
@@ -11,12 +12,22 @@ import {
 	Button,
 	Title,
 	List,
+	View,
 } from 'native-base';
 import moment from 'moment';
+import _ from 'lodash';
 import Commit from '../../components/Commit/Commit';
 import {parseCommitMessage} from './../../utils/helpers';
+import styles from './RepositoryStyles';
 
-const Repository = ({handleGoBack, commits, repoName}) => {
+const Repository = ({
+	handleGoBack,
+	commits,
+	repoName,
+	isFetching,
+	handleLoadMore,
+	loadMore,
+}) => {
 	return (
 		<Container>
 			<Header>
@@ -35,7 +46,6 @@ const Repository = ({handleGoBack, commits, repoName}) => {
 					{commits.map(commit => {
 						const {
 							sha,
-							author: {login, avatar_url},
 							commit: {
 								message,
 								author: {date},
@@ -44,17 +54,34 @@ const Repository = ({handleGoBack, commits, repoName}) => {
 						const parseDate = moment(date).format('MM/D - HH:mm');
 						const praseMessage = parseCommitMessage(message);
 
+						// I saw in the Github api sometimes "author" is null,
+						// then I'm using lodash "get" to get them whenever it's not null.
+						const username = _.get(commit.author, 'login');
+						const avatar = _.get(commit.author, 'avatar_url');
+
 						return (
 							<Commit
 								key={sha}
 								date={parseDate}
 								message={praseMessage}
-								username={login}
-								avatar={avatar_url}
+								username={username}
+								avatar={avatar}
 							/>
 						);
 					})}
 				</List>
+				<View style={styles.loadMoreView}>
+					{loadMore ? (
+						<Button
+							block
+							onPress={() => handleLoadMore()}
+							disabled={isFetching}>
+							<Text>Load more</Text>
+						</Button>
+					) : (
+						<Text>That's all the commits.</Text>
+					)}
+				</View>
 			</Content>
 		</Container>
 	);
@@ -64,6 +91,9 @@ Repository.propTypes = {
 	handleGoBack: PropTypes.func.isRequired,
 	commits: PropTypes.array.isRequired,
 	repoName: PropTypes.string.isRequired,
+	handleLoadMore: PropTypes.func.isRequired,
+	isFetching: PropTypes.bool.isRequired,
+	loadMore: PropTypes.bool.isRequired,
 };
 
 export default Repository;

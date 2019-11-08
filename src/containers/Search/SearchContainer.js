@@ -17,6 +17,7 @@ const SearchContainer = ({user, dispatch, isFetching}) => {
 	}, [initialized]);
 
 	const handleSubmitSearch = () => {
+		dispatch({type: 'PURGE_REPOSITORY'});
 		dispatch(fetch_repo(searchText));
 	};
 
