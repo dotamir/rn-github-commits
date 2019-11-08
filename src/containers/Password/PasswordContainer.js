@@ -15,6 +15,9 @@ import {
 	Body,
 	Title,
 	Right,
+	CardItem,
+	Card,
+	Toast,
 } from 'native-base';
 import {connect} from 'react-redux';
 import {handleGoBack} from './../../utils/helpers';
@@ -24,6 +27,15 @@ const PasswordContainer = ({username, dispatch, isAuthenticating}) => {
 	const [password, onChangePassword] = useState('');
 
 	const signIn = async () => {
+		if (!password || password.length < 8) {
+			Toast.show({
+				buttonText: 'Got it',
+				text: 'Password cannot be empty and it must be more that 8chars.',
+				type: 'warning',
+			});
+
+			return false;
+		}
 		await dispatch(login(username, password));
 	};
 
@@ -41,9 +53,14 @@ const PasswordContainer = ({username, dispatch, isAuthenticating}) => {
 				</Right>
 			</Header>
 			<Content>
-				<View>
-					<Text>{username}</Text>
-				</View>
+				<Card>
+					<CardItem>
+						<Text>Okay good, now we know your username is: {username}</Text>
+					</CardItem>
+					<CardItem>
+						<Text>Note: Please note it, which your 2FA Github settings must be disabled!</Text>
+					</CardItem>
+				</Card>
 				<Form style={styles.form}>
 					<Item style={styles.item} floatingLabel last>
 						<Label>Password</Label>

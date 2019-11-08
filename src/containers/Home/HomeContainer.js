@@ -16,14 +16,27 @@ import {
 	Right,
 	CardItem,
 	Card,
+	Toast,
 } from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
 const HomeContainer = () => {
 	const [username, onChangeUsername] = useState('');
+	const [error, setError] = useState(false);
 
 	const goToPassword = () => {
+		if (!username) {
+			setError(true);
+			Toast.show({
+				buttonText: 'Got it',
+				text: 'Username cannot be empty.',
+				type: 'danger',
+			});
+
+			return false;
+		}
+
 		Actions.password({username});
 	};
 
@@ -46,7 +59,7 @@ const HomeContainer = () => {
 					</CardItem>
 				</Card>
 				<Form style={styles.form}>
-					<Item style={styles.item} floatingLabel last>
+					<Item error={error} style={styles.item} floatingLabel last>
 						<Label>Username</Label>
 						<Input
 							autoCapitalize="none"
