@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {fetch_repo} from './../../redux/modules/repositories';
 import Search from './Search';
@@ -28,6 +29,11 @@ const SearchContainer = ({user, dispatch, isFetching}) => {
 			isFetching={isFetching}
 		/>
 	);
+};
+
+SearchContainer.propTypes = {
+	user: PropTypes.object.isRequired,
+	isFetching: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({authentication, repositories}) => ({

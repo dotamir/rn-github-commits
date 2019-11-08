@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StatusBar, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import {
@@ -84,6 +85,10 @@ const AppContainer = ({isAuthed}) => {
 			</Root>
 		</>
 	);
+};
+
+AppContainer.propTypes = {
+	isAuthed: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({authentication}) => ({

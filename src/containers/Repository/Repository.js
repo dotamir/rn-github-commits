@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
 	Container,
 	Header,
@@ -55,6 +56,12 @@ const Repository = ({handleGoBack, commits, repoName}) => {
 			</Content>
 		</Container>
 	);
+};
+
+Repository.propTypes = {
+	handleGoBack: PropTypes.func.isRequired,
+	commits: PropTypes.array.isRequired,
+	repoName: PropTypes.string.isRequired,
 };
 
 export default Repository;

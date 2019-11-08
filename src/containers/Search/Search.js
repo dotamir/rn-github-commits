@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Image} from 'react-native';
+import PropTypes from 'prop-types';
 import {
 	Container,
 	Header,
@@ -90,6 +90,14 @@ const Search = ({
 			</Content>
 		</Container>
 	);
+};
+
+Search.propTypes = {
+	searchText: PropTypes.string.isRequired,
+	setSearchText: PropTypes.func.isRequired,
+	handleSubmitSearch: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired,
+	isFetching: PropTypes.bool.isRequired,
 };
 
 export default Search;

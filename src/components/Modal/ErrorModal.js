@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StyleSheet, View} from 'react-native';
 import {Button, Text} from 'native-base';
 import {Actions} from 'react-native-router-flux';
@@ -23,5 +24,10 @@ const ErrorModal = props => (
 		</View>
 	</Modal>
 );
+
+ErrorModal.propTypes = {
+	title: PropTypes.string.isRequired,
+	data: PropTypes.string.isRequired,
+};
 
 export default ErrorModal;

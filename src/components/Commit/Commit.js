@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 import {ListItem, Left, Right, Body, Text, Thumbnail} from 'native-base';
 
@@ -24,6 +25,13 @@ const Commit = ({avatar, message, date, username}) => {
 			</Right>
 		</ListItem>
 	);
+};
+
+Commit.propTypes = {
+	avatar: PropTypes.string.isRequired,
+	message: PropTypes.string.isRequired,
+	date: PropTypes.string.isRequired,
+	username: PropTypes.string.isRequired,
 };
 
 const styles = StyleSheet.create({

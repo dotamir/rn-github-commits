@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import {
 	Container,
@@ -64,6 +65,11 @@ const PasswordContainer = ({username, dispatch, isAuthenticating}) => {
 			</Content>
 		</Container>
 	);
+};
+
+PasswordContainer.propTypes = {
+	username: PropTypes.string.isRequired,
+	isAuthenticating: PropTypes.bool.isRequired,
 };
 
 const styles = StyleSheet.create({

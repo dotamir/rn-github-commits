@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View, ActivityIndicator} from 'react-native';
 import {prepareApp} from './../../redux/modules/app';
@@ -23,6 +24,11 @@ const AppLoadingContainer = ({appIsReady, children, dispatch}) => {
 			<ActivityIndicator size="large" color="#0000ff" />
 		</View>
 	);
+};
+
+AppLoadingContainer.propTypes = {
+	appIsReady: PropTypes.bool.isRequired,
+	children: PropTypes.element.isRequired,
 };
 
 const mapStateToProps = ({app}) => ({
