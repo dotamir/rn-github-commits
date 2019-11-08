@@ -11,6 +11,7 @@ import {
 	Lightbox,
 	ActionConst,
 } from 'react-native-router-flux';
+import {Root} from 'native-base';
 import {protectedView} from '../../utils/helpers';
 import {StackViewStyleInterpolator} from 'react-navigation-stack';
 import AppLoadingContainer from './../AppLoading/AppLoadingContainer';
@@ -28,56 +29,59 @@ const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
 const AppContainer = ({isAuthed}) => {
 	return (
 		<>
-			<StatusBar barStyle="light-content" />
-			<AppLoadingContainer>
-				<Router uriPrefix={prefix}>
-					<Overlay key="overlay">
-						<Modal
-							key="modal"
-							hideNavBar={true}
-							transitionConfig={transitionConfig}>
-							<Lightbox>
-								<Stack
-									key="root"
-									titleStyle={{alignSelf: 'center'}}
-									hideNavBar={true}>
-									<Scene
-										key="home"
-										component={HomeContainer}
-										title="Home"
-										initial
-										type={ActionConst.RESET}
-									/>
-									<Scene
-										key="password"
-										component={PasswordContainer}
-										title="Password"
-									/>
+			<Root>
+				<StatusBar barStyle="light-content" />
+				<AppLoadingContainer>
+					<Router uriPrefix={prefix}>
+						<Overlay key="overlay">
+							<Modal
+								key="modal"
+								hideNavBar={true}
+								transitionConfig={transitionConfig}>
+								<Lightbox>
+									<Stack
+										key="root"
+										titleStyle={{alignSelf: 'center'}}
+										hideNavBar={true}>
+										<Scene
+											key="home"
+											component={HomeContainer}
+											title="Home"
+											initial
+											type={ActionConst.RESET}
+										/>
+										<Scene
+											key="password"
+											component={PasswordContainer}
+											title="Password"
+										/>
 
-									<Scene
-										key="search"
-										component={SearchContainer}
-										title="Search"
-										success={() => {
-											protectedView(isAuthed);
-										}}
-									/>
+										<Scene
+											key="search"
+											component={SearchContainer}
+											title="Search"
+											backToInitial={true}
+											success={() => {
+												protectedView(isAuthed);
+											}}
+										/>
 
-									<Scene
-										key="repository"
-										component={RepositoryContainer}
-										title="Repository history"
-										success={() => {
-											protectedView(isAuthed);
-										}}
-									/>
-								</Stack>
-								<Scene key="error" component={ErrorModal} />
-							</Lightbox>
-						</Modal>
-					</Overlay>
-				</Router>
-			</AppLoadingContainer>
+										<Scene
+											key="repository"
+											component={RepositoryContainer}
+											title="Repository history"
+											success={() => {
+												protectedView(isAuthed);
+											}}
+										/>
+									</Stack>
+									<Scene key="error" component={ErrorModal} />
+								</Lightbox>
+							</Modal>
+						</Overlay>
+					</Router>
+				</AppLoadingContainer>
+			</Root>
 		</>
 	);
 };

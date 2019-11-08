@@ -20,7 +20,7 @@ import {
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
-const HomeContainer = ({dispatch}) => {
+const HomeContainer = () => {
 	const [username, onChangeUsername] = useState('');
 
 	const goToPassword = () => {
@@ -49,6 +49,8 @@ const HomeContainer = ({dispatch}) => {
 					<Item style={styles.item} floatingLabel last>
 						<Label>Username</Label>
 						<Input
+							autoCapitalize="none"
+							autoCorrect={false}
 							onChangeText={text => onChangeUsername(text)}
 							value={username}
 						/>
