@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Dimensions} from 'react-native';
 import {
 	Container,
 	Header,
@@ -19,6 +18,7 @@ import _ from 'lodash';
 import Commit from '../../components/Commit/Commit';
 import {parseCommitMessage} from './../../utils/helpers';
 import styles from './RepositoryStyles';
+import LogoutButton from '../../components/Logout/Logout';
 
 const Repository = ({
 	handleGoBack,
@@ -83,6 +83,7 @@ const Repository = ({
 					)}
 				</View>
 			</Content>
+			<LogoutButton />
 		</Container>
 	);
 };

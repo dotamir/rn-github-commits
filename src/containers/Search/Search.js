@@ -15,6 +15,7 @@ import {
 	Right,
 	Body,
 } from 'native-base';
+import LogoutButton from './../../components/Logout/Logout';
 
 const Search = ({
 	searchText,
@@ -89,6 +90,7 @@ const Search = ({
 					</CardItem>
 				</Card>
 			</Content>
+			<LogoutButton />
 		</Container>
 	);
 };

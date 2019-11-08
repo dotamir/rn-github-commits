@@ -29,6 +29,13 @@ export const login = (username, password) => {
 	};
 };
 
+export const logout = () => {
+	return async dispatch => {
+		Actions.replace('home');
+		dispatch({type: SET_AUTH_STATUS, data: false});
+	};
+};
+
 const initialState = {
 	isAuthed: false,
 	isAuthenticating: false,
