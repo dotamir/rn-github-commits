@@ -28,10 +28,10 @@ const Commit = ({avatar, message, date, username}) => {
 };
 
 Commit.propTypes = {
-	avatar: PropTypes.string.isRequired,
+	avatar: PropTypes.string,
 	message: PropTypes.string.isRequired,
 	date: PropTypes.string.isRequired,
-	username: PropTypes.string.isRequired,
+	username: PropTypes.string,
 };
 
 const styles = StyleSheet.create({
