@@ -15,7 +15,7 @@ export const login = (username, password) => {
 
 			dispatch({type: SET_PROFILE_DATA, data: user});
 			dispatch({type: SET_AUTH_STATUS, data: true});
-			Actions.search();
+			Actions.replace('search');
 		} catch (err) {
 			const {data} = err.response;
 			Toast.show({

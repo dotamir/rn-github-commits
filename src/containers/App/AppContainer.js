@@ -56,15 +56,14 @@ const AppContainer = ({isAuthed}) => {
 											component={PasswordContainer}
 											title="Password"
 										/>
-
 										<Scene
 											key="search"
 											component={SearchContainer}
 											title="Search"
-											backToInitial={true}
 											success={() => {
 												protectedView(isAuthed);
 											}}
+											type={ActionConst.RESET}
 										/>
 
 										<Scene
