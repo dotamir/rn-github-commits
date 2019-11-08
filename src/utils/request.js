@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {serialize} from './helpers';
-
+import _ from 'lodash';
+import {apiUrl} from './../config/constant';
 /**
  * Method for making ajax calls to the site's api
  * @param {String} endpoint - the endpoint url
@@ -8,15 +9,25 @@ import {serialize} from './helpers';
  * @param {String} [method=get] - the type of ajax request to make
  * @returns {Promise}
  */
-export default async function request(endpoint, data, method) {
-	let url = `/${endpoint}`;
+export default async function request(
+	endpoint,
+	data,
+	method,
+	extraOptions = {},
+) {
+	let url = `${apiUrl}/${endpoint}`;
 	url = method === 'GET' && data !== null ? `${url}?${serialize(data)}` : url;
 
-	const options = {
+	let options = {
+		headers: {
+			'Content-Type': 'application/json',
+			Accept: 'application/json',
+		},
 		method,
-		mode: 'cors',
 		url,
 	};
+
+	options = _.merge(options, extraOptions);
 
 	if (data) {
 		options.data = data;

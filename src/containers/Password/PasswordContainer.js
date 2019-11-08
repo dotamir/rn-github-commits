@@ -23,7 +23,7 @@ const PasswordContainer = ({username, dispatch, isAuthenticating}) => {
 	const [password, onChangePassword] = useState('');
 
 	const signIn = async () => {
-		await dispatch(login());
+		await dispatch(login(username, password));
 	};
 
 	return (
@@ -47,6 +47,8 @@ const PasswordContainer = ({username, dispatch, isAuthenticating}) => {
 					<Item style={styles.item} floatingLabel last>
 						<Label>Password</Label>
 						<Input
+							autoCapitalize="none"
+							autoCorrect={false}
 							onChangeText={text => onChangePassword(text)}
 							value={password}
 						/>

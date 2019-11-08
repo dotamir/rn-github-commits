@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import Search from './Search';
 
-const SearchContainer = () => {
+const SearchContainer = ({user}) => {
 	const [initialized, setInitialized] = useState(false);
 	const [searchText, setSearchText] = useState('');
 
@@ -24,6 +24,7 @@ const SearchContainer = () => {
 			setSearchText={setSearchText}
 			searchText={searchText}
 			handleSubmitSearch={handleSubmitSearch}
+			user={user}
 		/>
 	);
 };

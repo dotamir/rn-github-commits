@@ -1,18 +1,29 @@
 import {Actions} from 'react-native-router-flux';
+import {loginUser} from './../../api/user';
+import {Toast} from 'native-base';
 
 const AUTHENTICATING = 'AUTHENTICATING';
 const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
 
-export const login = data => {
+export const login = (username, password) => {
 	return async dispatch => {
 		dispatch({type: AUTHENTICATING, data: true});
 
-		setTimeout(async () => {
-			await dispatch({type: AUTHENTICATING, data: false});
-			await dispatch({type: SET_AUTH_STATUS, data: true});
+		try {
+			const user = await loginUser(username, password);
 
-			Actions.search();
-		}, 2000);
+			dispatch({type: SET_AUTH_STATUS, data: true});
+			Actions.search({user});
+		} catch (err) {
+			const {data} = err.response;
+			Toast.show({
+				text: data.message,
+				buttonText: 'Okay',
+				type: 'warning',
+			});
+		} finally {
+			dispatch({type: AUTHENTICATING, data: false});
+		}
 	};
 };
 
