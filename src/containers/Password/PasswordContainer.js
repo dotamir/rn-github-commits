@@ -58,13 +58,17 @@ const PasswordContainer = ({username, dispatch, isAuthenticating}) => {
 						<Text>Okay good, now we know your username is: {username}</Text>
 					</CardItem>
 					<CardItem>
-						<Text>Note: Please note it, which your 2FA Github settings must be disabled!</Text>
+						<Text>
+							Note: Please note it, which your 2FA Github settings must be
+							disabled!
+						</Text>
 					</CardItem>
 				</Card>
 				<Form style={styles.form}>
 					<Item style={styles.item} floatingLabel last>
 						<Label>Password</Label>
 						<Input
+							secureTextEntry={true}
 							autoCapitalize="none"
 							autoCorrect={false}
 							onChangeText={text => onChangePassword(text)}
