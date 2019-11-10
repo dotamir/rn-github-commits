@@ -25,7 +25,7 @@ import ErrorModal from '../../components/Modal/ErrorModal';
 const transitionConfig = () => ({
 	screenInterpolator: StackViewStyleInterpolator.forFadeFromBottomAndroid,
 });
-const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
+const prefix = Platform.OS === 'android' ? 'myapp://myapp/' : 'myapp://';
 
 const AppContainer = ({isAuthed}) => {
 	return (
